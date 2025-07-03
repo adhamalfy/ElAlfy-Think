@@ -19,22 +19,22 @@ const ChatBot: React.FC = () => {
   const sendMessage = async () => {
     if (input.trim() === '') return;
 
-    // Add user message to the chat
+   
     const userMessage: Message = { role: 'user', content: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setLoading(true);
 
     try {
-      // Initialize the Gemini model
+     
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-      // Send the message to Gemini API
+ 
       const result = await model.generateContent(input);
       const response = await result.response;
       const text = response.text();
 
-      // Add bot response to the chat
+   
       const botMessage: Message = { role: 'bot', content: text };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
