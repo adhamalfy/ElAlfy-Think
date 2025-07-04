@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 
-     const genAI = new GoogleGenerativeAI('AIzaSyB6BsztybkrtNBtbVHfmYT-Xyql1eek1zw');
+const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY!;
+const genAI = new GoogleGenerativeAI(apiKey);
 
 
 interface Message {
