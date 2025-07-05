@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 
@@ -56,9 +57,8 @@ const ChatBot: React.FC = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
       {/* Logo Header */}
-      <div className="p-4 text-center">
-        <img src="/assests/logo.png" alt="Logo" className="mx-auto h-12" /> {/* Replace with your logo path */}
-      </div>
+        <Image src="/assests/logo.png" alt="Logo" width={48} height={48} className="mx-auto h-12" /> 
+
       {/* Chat Area */}
       <div className="flex-1 overflow-y-auto p-4 bg-gray-800 rounded-lg shadow-inner">
         {messages.map((msg, index) => (
