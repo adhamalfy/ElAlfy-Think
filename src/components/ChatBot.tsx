@@ -3,10 +3,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-
 const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY!;
 const genAI = new GoogleGenerativeAI(apiKey);
-
 
 interface Message {
   role: 'user' | 'bot';
@@ -20,23 +18,15 @@ const ChatBot: React.FC = () => {
 
   const sendMessage = async () => {
     if (input.trim() === '') return;
-
-   
     const userMessage: Message = { role: 'user', content: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setLoading(true);
-
     try {
-     
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-
- 
       const result = await model.generateContent(input);
       const response = await result.response;
       const text = response.text();
-
-   
       const botMessage: Message = { role: 'bot', content: text };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
@@ -56,10 +46,7 @@ const ChatBot: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
-      {/* Logo Header */}
-        <Image src="/assests/logo.png" alt="Logo" width={48} height={48} className="mx-auto h-12" /> 
-
-      {/* Chat Area */}
+      <Image src="/assests/logo.png" alt="Logo" width={48} height={48} className="mx-auto h-12" />
       <div className="flex-1 overflow-y-auto p-4 bg-gray-800 rounded-lg shadow-inner">
         {messages.map((msg, index) => (
           <div
@@ -75,7 +62,6 @@ const ChatBot: React.FC = () => {
         ))}
         {loading && <div className="p-2 my-2 rounded-lg bg-gray-700 mr-auto max-w-xs">Loading...</div>}
       </div>
-      {/* Input Area */}
       <div className="p-4 bg-gray-900">
         <div className="flex gap-2">
           <input
