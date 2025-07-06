@@ -87,8 +87,12 @@ const AuthForm: React.FC = () => {
                   className="p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none"
                 />
                 {error && <div className="text-red-400 text-sm text-center">{error}</div>}
-                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition" disabled={loading}>
-                  {loading ? "Loading..." : "Sign In"}
+                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition flex items-center justify-center" disabled={loading}>
+                  {loading ? (
+                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin inline-block"></span>
+                  ) : (
+                    "Sign In"
+                  )}
                 </button>
               </form>
               <p className="text-center text-gray-400 text-sm">
@@ -129,8 +133,12 @@ const AuthForm: React.FC = () => {
                   className="p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none"
                 />
                 {error && <div className="text-red-400 text-sm text-center">{error}</div>}
-                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition" disabled={loading}>
-                  {loading ? "Loading..." : "Sign Up"}
+                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition flex items-center justify-center" disabled={loading}>
+                  {loading ? (
+                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin inline-block"></span>
+                  ) : (
+                    "Sign Up"
+                  )}
                 </button>
               </form>
               <p className="text-center text-gray-400 text-sm">
