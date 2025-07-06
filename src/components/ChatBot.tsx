@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { Toaster, toast } from 'react-hot-toast';
 
 const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY!;
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -15,6 +16,16 @@ const ChatBot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const name = localStorage.getItem("welcomeName");
+      if (name) {
+        toast.success(`مرحباً بك يا ${name} في صفحة الدردشة!`);
+        localStorage.removeItem("welcomeName");
+      }
+    }
+  }, []);
 
   const sendMessage = async () => {
     if (input.trim() === '') return;
@@ -45,7 +56,8 @@ const ChatBot: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 text-white">
+    <div className="flex flex-col h-screen bg-gray-900">
+      <Toaster position="top-center" />
       <Image src="/assests/logo.png" alt="Logo" width={48} height={48} className="mx-auto h-12" />
       <div className="flex-1 overflow-y-auto p-4 bg-gray-800 rounded-lg shadow-inner">
         {messages.map((msg, index) => (
