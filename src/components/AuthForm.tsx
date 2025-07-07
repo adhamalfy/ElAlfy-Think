@@ -129,11 +129,11 @@ const AuthForm: React.FC = () => {
                           </span>
                           <motion.span
                             key="svg"
-                            initial={{ scale: 1, x: 0, opacity: 1 }}
-                            animate={{ scale: 1, x: 0, opacity: 1 }}
+                            initial={{ scale: 1, opacity: 1 }}
+                            animate={{ scale: 1, opacity: 1 }}
                             exit={{ opacity: 0 }}
                             className="inline-block"
-                            style={{ marginLeft: 8, position: 'static', left: 'unset', top: 'unset', transform: 'none' }}
+                            style={{ marginLeft: 8 }}
                           >
                             <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -141,19 +141,43 @@ const AuthForm: React.FC = () => {
                           </motion.span>
                         </>
                       ) : (
-                        <motion.span
-                          key="svg-fly"
-                          initial={{ x: 0, y: 0, scale: 1, rotate: 0, opacity: 1 }}
-                          animate={{ x: 80, y: -10, scale: 1.5, rotate: 25, opacity: 1 }}
-                          transition={{ type: "spring", stiffness: 120, damping: 18, duration: 3 }}
-                          className="inline-block"
-                          style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', zIndex: 2 }}
-                          onAnimationComplete={() => {}}
+                        <span
+                          style={{
+                            position: 'absolute',
+                            left: '50%',
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            zIndex: 2,
+                            pointerEvents: 'none',
+                            width: 48,
+                            height: 40,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            overflow: 'visible',
+                          }}
                         >
-                          <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <motion.div
+                            initial={{ width: 0, opacity: 0.15 }}
+                            animate={{ width: 48, opacity: 0.25 }}
+                            transition={{ duration: 1.2, ease: 'easeInOut' }}
+                            style={{
+                              position: 'absolute',
+                              left: '50%',
+                              top: '60%',
+                              transform: 'translate(-50%, -50%)',
+                              height: 4,
+                              background: 'rgba(255,255,255,0.18)',
+                              borderRadius: 2,
+                              zIndex: 1,
+                              width: 48,
+                              pointerEvents: 'none',
+                            }}
+                          />
+                          <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ zIndex: 2 }}>
                             <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
-                        </motion.span>
+                        </span>
                       )}
                     </AnimatePresence>
                   </span>
@@ -233,11 +257,11 @@ const AuthForm: React.FC = () => {
                           </span>
                           <motion.span
                             key="svg"
-                            initial={{ scale: 1, x: 0, opacity: 1 }}
-                            animate={{ scale: 1, x: 0, opacity: 1 }}
+                            initial={{ scale: 1, opacity: 1 }}
+                            animate={{ scale: 1, opacity: 1 }}
                             exit={{ opacity: 0 }}
                             className="inline-block"
-                            style={{ marginLeft: 8, position: 'static', left: 'unset', top: 'unset', transform: 'none' }}
+                            style={{ marginLeft: 8 }}
                           >
                             <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -245,19 +269,43 @@ const AuthForm: React.FC = () => {
                           </motion.span>
                         </>
                       ) : (
-                        <motion.span
-                          key="svg-fly"
-                          initial={{ x: 0, y: 0, scale: 1, rotate: 0, opacity: 1 }}
-                          animate={{ x: 80, y: -10, scale: 1.5, rotate: 25, opacity: 1 }}
-                          transition={{ type: "spring", stiffness: 120, damping: 18, duration: 3 }}
-                          className="inline-block"
-                          style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
-                          onAnimationComplete={() => {}}
+                        <span
+                          style={{
+                            position: 'absolute',
+                            left: '50%',
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            zIndex: 2,
+                            pointerEvents: 'none',
+                            width: 48,
+                            height: 40,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            overflow: 'visible',
+                          }}
                         >
-                          <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <motion.div
+                            initial={{ width: 0, opacity: 0.15 }}
+                            animate={{ width: 48, opacity: 0.25 }}
+                            transition={{ duration: 1.2, ease: 'easeInOut' }}
+                            style={{
+                              position: 'absolute',
+                              left: '50%',
+                              top: '60%',
+                              transform: 'translate(-50%, -50%)',
+                              height: 4,
+                              background: 'rgba(255,255,255,0.18)',
+                              borderRadius: 2,
+                              zIndex: 1,
+                              width: 48,
+                              pointerEvents: 'none',
+                            }}
+                          />
+                          <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ zIndex: 2 }}>
                             <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
-                        </motion.span>
+                        </span>
                       )}
                     </AnimatePresence>
                   </span>
