@@ -31,14 +31,17 @@ const AuthForm: React.FC = () => {
       return;
     }
     if (isSignIn) {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error, data } = await supabase.auth.signInWithPassword({ email, password });
       setLoading(false);
       if (error) {
         setError(error.message);
       } else {
         setFly(true);
+        // Try to get the user's name from user_metadata after sign in
+        let userName = data?.user?.user_metadata?.name || name || 'User';
+        userName = userName.split(' ')[0]; // Use only the first name
         setTimeout(() => {
-          toast.success("أهلاً بعودتك!");
+          toast.success(`Sign in successful! Welcome, ${userName}!`);
           router.push("/chat");
         }, 3000); 
       }
@@ -49,8 +52,10 @@ const AuthForm: React.FC = () => {
         setError(error.message);
       } else {
         setFly(true);
+        let userName = data.user?.user_metadata?.name || name || 'User';
+        userName = userName.split(' ')[0]; // Use only the first name
         setTimeout(() => {
-          toast.success(`Registration successful! Welcome, ${data.user?.user_metadata?.name || name || 'User'}!`);
+          toast.success(`Registration successful! Welcome, ${userName}!`);
           router.push("/chat");
         }, 3000); 
       }
