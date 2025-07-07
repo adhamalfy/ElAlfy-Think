@@ -40,7 +40,7 @@ const AuthForm: React.FC = () => {
         setTimeout(() => {
           toast.success("أهلاً بعودتك!");
           router.push("/chat");
-        }, 600);
+        }, 3000); // 3 ثواني
       }
     } else {
       const { error } = await supabase.auth.signUp({ email, password, options: { data: { name } } });
@@ -55,7 +55,7 @@ const AuthForm: React.FC = () => {
         setTimeout(() => {
           toast.success(`Registration successful! Welcome, ${name}!`);
           router.push("/chat");
-        }, 600);
+        }, 3000); // 3 ثواني
       }
     }
   };
@@ -100,29 +100,55 @@ const AuthForm: React.FC = () => {
                   disabled={loading}
                   style={{ minHeight: 48 }}
                 >
-                  <span className="flex items-center gap-2 w-full justify-center">
+                  {fly && (
+                    <motion.span
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: 120, opacity: 0.3 }}
+                      transition={{ duration: 2.5, ease: 'easeInOut' }}
+                      style={{
+                        position: 'absolute',
+                        left: '50%',
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        height: 6,
+                        zIndex: 0,
+                        pointerEvents: 'none',
+                      }}
+                    >
+                      <svg width="120" height="6" viewBox="0 0 120 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="120" height="6" rx="3" fill="#fff" fillOpacity="0.2"/>
+                      </svg>
+                    </motion.span>
+                  )}
+                  <span className="flex items-center gap-2 w-full justify-center relative z-10">
                     <AnimatePresence initial={false}>
-                      {!fly && !loading && (
+                      {!fly ? (
+                        <>
+                          <span style={{ opacity: fly ? 0 : 1, transition: 'opacity 0.2s' }}>
+                            {loading ? '' : (isSignIn ? "Sign In" : "Sign Up")}
+                          </span>
+                          <motion.span
+                            key="svg"
+                            initial={{ scale: 1, x: 0, opacity: 1 }}
+                            animate={{ scale: 1, x: 0, opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="inline-block"
+                            style={{ marginLeft: 8, position: 'static', left: 'unset', top: 'unset', transform: 'none' }}
+                          >
+                            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </motion.span>
+                        </>
+                      ) : (
                         <motion.span
-                          key="text"
-                          initial={{ opacity: 1 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0, scale: 0.8, y: -10 }}
-                          transition={{ duration: 0.2 }}
+                          key="svg-fly"
+                          initial={{ x: 0, y: 0, scale: 1, rotate: 0, opacity: 1 }}
+                          animate={{ x: 80, y: -10, scale: 1.5, rotate: 25, opacity: 1 }}
+                          transition={{ type: "spring", stiffness: 120, damping: 18, duration: 3 }}
                           className="inline-block"
-                        >
-                          Sign In
-                        </motion.span>
-                      )}
-                      {(fly || loading) && (
-                        <motion.span
-                          key="svg"
-                          initial={{ x: 0, scale: 1, opacity: 1 }}
-                          animate={fly ? { x: 200, scale: 2, opacity: 0 } : { x: 0, scale: 1, opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ type: "spring", stiffness: 200, damping: 20, duration: 0.6 }}
-                          className="inline-block"
-                          onAnimationComplete={() => setFly(false)}
+                          style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', zIndex: 2 }}
+                          onAnimationComplete={() => {}}
                         >
                           <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -177,29 +203,56 @@ const AuthForm: React.FC = () => {
                   disabled={loading}
                   style={{ minHeight: 48 }}
                 >
-                  <span className="flex items-center gap-2 w-full justify-center">
+                  {fly && (
+                    <motion.span
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: 120, opacity: 0.3 }}
+                      transition={{ duration: 2.5, ease: 'easeInOut' }}
+                      style={{
+                        position: 'absolute',
+                        left: '50%',
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        height: 6,
+                        zIndex: 0,
+                        pointerEvents: 'none',
+                      }}
+                    >
+                      <svg width="120" height="6" viewBox="0 0 120 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="120" height="6" rx="3" fill="#fff" fillOpacity="0.2"/>
+                      </svg>
+                    </motion.span>
+                  )}
+                  <span className="flex items-center gap-2 w-full justify-center relative z-10">
                     <AnimatePresence initial={false}>
-                      {!fly && !loading && (
+                      {!fly ? (
+                        <>
+                         
+                          <span style={{ opacity: fly ? 0 : 1, transition: 'opacity 0.2s' }}>
+                            {isSignIn ? "Sign In" : "Sign Up"}
+                          </span>
+                          <motion.span
+                            key="svg"
+                            initial={{ scale: 1, x: 0, opacity: 1 }}
+                            animate={{ scale: 1, x: 0, opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="inline-block"
+                            style={{ marginLeft: 8, position: 'static', left: 'unset', top: 'unset', transform: 'none' }}
+                          >
+                            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </motion.span>
+                        </>
+                      ) : (
                         <motion.span
-                          key="text"
-                          initial={{ opacity: 1 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0, scale: 0.8, y: -10 }}
-                          transition={{ duration: 0.2 }}
+                          key="svg-fly"
+                          initial={{ x: 0, y: 0, scale: 1, rotate: 0, opacity: 1 }}
+                          animate={{ x: 80, y: -10, scale: 1.5, rotate: 25, opacity: 1 }}
+                          transition={{ type: "spring", stiffness: 120, damping: 18, duration: 3 }}
                           className="inline-block"
-                        >
-                          Sign Up
-                        </motion.span>
-                      )}
-                      {(fly || loading) && (
-                        <motion.span
-                          key="svg"
-                          initial={{ x: 0, scale: 1, opacity: 1 }}
-                          animate={fly ? { x: 200, scale: 2, opacity: 0 } : { x: 0, scale: 1, opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ type: "spring", stiffness: 200, damping: 20, duration: 0.6 }}
-                          className="inline-block"
-                          onAnimationComplete={() => setFly(false)}
+                          style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+                          onAnimationComplete={() => {}}
                         >
                           <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
