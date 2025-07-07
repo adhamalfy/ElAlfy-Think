@@ -13,6 +13,7 @@ const AuthForm: React.FC = () => {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [fly, setFly] = useState(false);
   const router = useRouter();
 
   const toggleForm = () => {
@@ -35,8 +36,11 @@ const AuthForm: React.FC = () => {
       if (error) {
         setError(error.message);
       } else {
-        toast.success("أهلاً بعودتك!");
-        router.push("/chat");
+        setFly(true);
+        setTimeout(() => {
+          toast.success("أهلاً بعودتك!");
+          router.push("/chat");
+        }, 600);
       }
     } else {
       const { error } = await supabase.auth.signUp({ email, password, options: { data: { name } } });
@@ -47,8 +51,11 @@ const AuthForm: React.FC = () => {
         if (typeof window !== "undefined") {
           localStorage.setItem("welcomeName", name);
         }
-        toast.success(`Registration successful! Welcome, ${name}!`);
-        router.push("/chat");
+        setFly(true);
+        setTimeout(() => {
+          toast.success(`Registration successful! Welcome, ${name}!`);
+          router.push("/chat");
+        }, 600);
       }
     }
   };
@@ -91,18 +98,20 @@ const AuthForm: React.FC = () => {
                   type="submit"
                   className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition flex items-center justify-center relative overflow-hidden"
                   disabled={loading}
+                  onClick={() => setFly(true)}
                 >
                   <span className="flex items-center gap-2">
                     <span>Sign In</span>
                     <motion.span
                       initial={{ x: 0 }}
-                      animate={loading ? { x: 32 } : { x: 0 }}
+                      animate={loading ? { x: 32 } : fly ? { x: 200, opacity: 0, rotate: 30 } : { x: 0, opacity: 1, rotate: 0 }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       className="inline-block"
+                      onAnimationComplete={() => setFly(false)}
                     >
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 10H16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M10 4L16 10L10 16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      {/* SVG Send Icon */}
+                      <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </motion.span>
                   </span>
@@ -153,18 +162,20 @@ const AuthForm: React.FC = () => {
                   type="submit"
                   className="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition flex items-center justify-center relative overflow-hidden"
                   disabled={loading}
+                  onClick={() => setFly(true)}
                 >
                   <span className="flex items-center gap-2">
                     <span>Sign Up</span>
                     <motion.span
                       initial={{ x: 0 }}
-                      animate={loading ? { x: 32 } : { x: 0 }}
+                      animate={loading ? { x: 32 } : fly ? { x: 200, opacity: 0, rotate: 30 } : { x: 0, opacity: 1, rotate: 0 }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                       className="inline-block"
+                      onAnimationComplete={() => setFly(false)}
                     >
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 10H16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M10 4L16 10L10 16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      {/* SVG Send Icon */}
+                      <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 8L40 24L8 40V28L28 24L8 20V8Z" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </motion.span>
                   </span>
