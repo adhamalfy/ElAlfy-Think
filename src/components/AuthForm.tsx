@@ -48,9 +48,6 @@ const AuthForm: React.FC = () => {
       if (error) {
         setError(error.message);
       } else {
-        if (typeof window !== "undefined") {
-          localStorage.setItem("welcomeName", name);
-        }
         setFly(true);
         setTimeout(() => {
           toast.success(`Registration successful! Welcome, ${name}!`);
