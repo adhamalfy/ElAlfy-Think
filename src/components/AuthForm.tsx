@@ -40,19 +40,19 @@ const AuthForm: React.FC = () => {
         setTimeout(() => {
           toast.success("أهلاً بعودتك!");
           router.push("/chat");
-        }, 3000); // 3 ثواني
+        }, 3000); 
       }
     } else {
-      const { error } = await supabase.auth.signUp({ email, password, options: { data: { name } } });
+      const { error, data } = await supabase.auth.signUp({ email, password, options: { data: { name } } });
       setLoading(false);
       if (error) {
         setError(error.message);
       } else {
         setFly(true);
         setTimeout(() => {
-          toast.success(`Registration successful! Welcome, ${name}!`);
+          toast.success(`Registration successful! Welcome, ${data.user?.user_metadata?.name || name || 'User'}!`);
           router.push("/chat");
-        }, 3000); // 3 ثواني
+        }, 3000); 
       }
     }
   };
