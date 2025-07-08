@@ -60,7 +60,7 @@ const ChatBot: React.FC = () => {
   return (
     <div className="flex h-screen bg-gray-900">
       <aside className="w-64 bg-gray-950 border-r border-gray-800 flex flex-col items-center py-8 px-4">
-        <Image src="/assests/logo.png" alt="Logo" width={56} height={56} className="mb-8" />
+        <Image src="/assests/logo.png" alt="Logo" width={250} height={250}  />
         <button
           onClick={handleLogout}
           className="w-full py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition mb-4"
@@ -72,7 +72,6 @@ const ChatBot: React.FC = () => {
       </aside>
       <div className="flex flex-col flex-1 h-full">
         <header className="w-full bg-gray-950 border-b border-gray-800 py-4 px-8 flex items-center gap-4 shadow-sm">
-          <Image src="/assests/logo.png" alt="Logo" width={40} height={40} className="" />
           <h1 className="text-2xl font-bold text-white tracking-tight">elalfy ChatBot</h1>
         </header>
         <div className="flex-1 overflow-y-auto p-8 bg-gray-900">
