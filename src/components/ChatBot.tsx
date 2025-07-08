@@ -8,7 +8,7 @@ const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY!;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 interface Message {
-  role: 'user' | 'bot';
+  role: 'user' | 'elalfy-ai';
   content: string;
 }
 
@@ -42,10 +42,10 @@ const ChatBot: React.FC = () => {
       const result = await model.generateContent(input);
       const response = await result.response;
       const text = response.text();
-      const botMessage: Message = { role: 'bot', content: text };
+      const botMessage: Message = { role: 'elalfy-ai', content: text };
       setMessages((prev) => [...prev, botMessage]);
     } catch {
-      setMessages((prev) => [...prev, { role: 'bot', content: 'Something went wrong. Please try again.' }]);
+      setMessages((prev) => [...prev, { role: 'elalfy-ai', content: 'Something went wrong. Please try again.' }]);
     } finally {
       setLoading(false);
     }
