@@ -17,11 +17,15 @@ const ChatBot: React.FC = () => {
   const [input, setInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
+  const handleLogout = () => {
+    toast('Logged out successfully!', { icon: '🚪' });
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const name = localStorage.getItem("welcomeName");
       if (name) {
-        toast.success(`مرحباً بك يا ${name} في صفحة الدردشة!`);
+        toast.success(`Welcome, ${name}, to the chat page!`);
         localStorage.removeItem("welcomeName");
       }
     }
@@ -40,10 +44,8 @@ const ChatBot: React.FC = () => {
       const text = response.text();
       const botMessage: Message = { role: 'bot', content: text };
       setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
-      console.error('Error fetching response:', error);
-      const errorMessage: Message = { role: 'bot', content: 'Something went wrong. Please try again.' };
-      setMessages((prev) => [...prev, errorMessage]);
+    } catch {
+      setMessages((prev) => [...prev, { role: 'bot', content: 'Something went wrong. Please try again.' }]);
     } finally {
       setLoading(false);
     }
@@ -56,43 +58,61 @@ const ChatBot: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900">
-      <Toaster position="top-center" />
-      <Image src="/assests/logo.png" alt="Logo" width={48} height={48} className="mx-auto h-12" />
-      <div className="flex-1 overflow-y-auto p-4 bg-gray-800 rounded-lg shadow-inner">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`p-2 my-2 rounded-lg ${
-              msg.role === 'user'
-                ? 'bg-blue-600 ml-auto text-right max-w-xs'
-                : 'bg-gray-700 mr-auto max-w-xs'
-            }`}
-          >
-            <strong>{msg.role === 'user' ? 'You' : 'Bot'}:</strong> {msg.content}
+    <div className="flex h-screen bg-gray-900">
+      <aside className="w-64 bg-gray-950 border-r border-gray-800 flex flex-col items-center py-8 px-4">
+        <Image src="/assests/logo.png" alt="Logo" width={56} height={56} className="mb-8" />
+        <button
+          onClick={handleLogout}
+          className="w-full py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition mb-4"
+        >
+          Log out
+        </button>
+        <div className="flex-1" />
+        <span className="text-gray-500 text-xs">elalfy-think © 2025</span>
+      </aside>
+      <div className="flex flex-col flex-1 h-full">
+        <header className="w-full bg-gray-950 border-b border-gray-800 py-4 px-8 flex items-center gap-4 shadow-sm">
+          <Image src="/assests/logo.png" alt="Logo" width={40} height={40} className="" />
+          <h1 className="text-2xl font-bold text-white tracking-tight">elalfy ChatBot</h1>
+        </header>
+        <div className="flex-1 overflow-y-auto p-8 bg-gray-900">
+          <div className="max-w-2xl mx-auto flex flex-col gap-4">
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`px-4 py-3 rounded-2xl shadow-md text-base whitespace-pre-line break-words max-w-xl ${
+                  msg.role === 'user'
+                    ? 'bg-blue-600 text-white self-end rounded-br-md'
+                    : 'bg-gray-800 text-gray-100 self-start rounded-bl-md'
+                }`}
+              >
+                <span className="font-semibold mr-2">{msg.role === 'user' ? 'You' : 'Bot'}:</span> {msg.content}
+              </div>
+            ))}
+            {loading && <div className="px-4 py-3 rounded-2xl bg-gray-800 text-gray-400 self-start max-w-xl">Loading...</div>}
           </div>
-        ))}
-        {loading && <div className="p-2 my-2 rounded-lg bg-gray-700 mr-auto max-w-xs">Loading...</div>}
-      </div>
-      <div className="p-4 bg-gray-900">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Type your message..."
-            disabled={loading}
-            className="flex-1 p-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            onClick={sendMessage}
-            disabled={loading}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed"
-          >
-            Send
-          </button>
         </div>
+        <div className="w-full bg-gray-950 border-t border-gray-800 py-4 px-8">
+          <div className="max-w-2xl mx-auto flex gap-2">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Type your message..."
+              disabled={loading}
+              className="flex-1 p-3 bg-gray-800 text-white border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+            />
+            <button
+              onClick={sendMessage}
+              disabled={loading}
+              className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed text-base font-semibold transition"
+            >
+              Send
+            </button>
+          </div>
+        </div>
+        <Toaster position="top-center" />
       </div>
     </div>
   );
